@@ -12,7 +12,7 @@ const Game = ({endGame}: Props) => {
 
   return (
     <div className={style.wrapper}>
-      <h1>Саппер</h1>
+      <h1>Сапёр</h1>
       <GameWindow/>
       <button onClick={endGame}>Завершить</button>
     </div>

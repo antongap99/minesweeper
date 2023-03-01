@@ -1,7 +1,9 @@
 import style from './Tile.module.css';
 import cn from 'classnames'
-interface Props{
-
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  children?:ReactNode
+  bombs?:number
 };
 
 
