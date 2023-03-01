@@ -1,0 +1,11 @@
+.start {
+    display: flex;
+    flex-direction: column;
+    min-width: 320px;
+    align-items: center;
+    background: var(--primary);
+}
+
+.title {
+    font-size: 25px;
+}

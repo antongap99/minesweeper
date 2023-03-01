@@ -1,0 +1,47 @@
+:root {
+    --black: #818181;
+    --white: #FFF;
+    --gray-light: #EBEBEB;
+    --primary: #BFBFBF;
+}
+
+@font-face {
+    font-family: 'ArcadeClassic';
+    src: local("ArcadeClassic"), url('../fonts/ARCADECLASSIC.ttf'), format('WOFF');
+}
+
+html {
+    box-sizing: border-box;
+    font-family: ArcadeClassic, sans-serif;
+    text-transform: capitalize;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #E5E5E5;
+}
+
+.border {
+    border-top: var(--white);
+    border-left: var(--white);
+    border-right: var(--black);
+    border-bottom: var(--black);
+    border-width: 4px;
+    border-style: solid;
+}
+
+.border-reverse {
+    border-right: var(--white);
+    border-bottom: var(--white);
+    border-top: var(--black);
+    border-left: var(--black);
+    border-width: 4px;
+    border-style: solid;
+}
+
+.svg {
+    width: 24px;
+    height: 24px;
+}

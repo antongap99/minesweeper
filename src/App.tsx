@@ -1,12 +1,14 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { useState } from "react";
+import  Game  from "./components/Game/Game";
+import  Start  from "./components/Start/Start";
 
 export const App: React.FC = () => {
-  const [begin, setBegin] = useState<boolean>(false);
+  const [begin, setBegin] = useState<boolean>(true);
 
-  const startGame = (e: SyntheticEvent<HTMLButtonElement>): void => {
+  const startGame = (): void => {
     setBegin(true);
   };
-  const endGame = (e: SyntheticEvent<HTMLButtonElement>): void => {
+  const endGame = (): void => {
     if(begin){
       setBegin(false);
     }
@@ -15,15 +17,9 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       {!begin ? (
-        <div>
-          <h1>Игра сапер</h1>
-          <button onClick={startGame}>Начать</button>
-        </div>
+        <Start startGame={startGame }/>
       ) : (
-        <div>
-          <h1>игра</h1>
-          <button onClick={endGame}>Завершить</button>
-        </div>
+          <Game endGame={endGame}/>
       )}
     </div>
   );
