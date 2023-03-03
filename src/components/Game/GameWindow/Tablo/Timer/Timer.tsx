@@ -43,7 +43,7 @@ export const Timer = () => {
   return (
     <div className={style.timer}>
       {
-        !over ? (
+        !over  ? (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)
         ) : (
             <>

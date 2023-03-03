@@ -10,3 +10,7 @@
 .over {
     pointer-events: none;
 }
+
+.win {
+    pointer-events: none;
+}

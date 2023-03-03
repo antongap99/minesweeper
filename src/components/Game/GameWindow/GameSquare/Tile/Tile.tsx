@@ -4,9 +4,10 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, SyntheticEvent, useContext, us
 import { BombsContext } from '../../../../../context/bomb.context';
 import { SmilesContext } from '../../../../../context/smile.context';
 import { Emojies } from '../../../../../context/smile.context';
-import { HEIGHT, TilesContext, WIDTH, BOMBS } from '../../../../../context/tiles.context';
-import { openTiles, pickedTiles, isWin } from '../tilesControl';
+import { TilesContext} from '../../../../../context/tiles.context';
+import { openTiles, pickedTiles} from '../tilesControl';
 import { GameContext } from '../../../../../context/game.context';
+import { BOMBS, HEIGHT, WIDTH } from '../../../../../const/const';
 
 interface TileProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   bomb?: boolean;
@@ -36,7 +37,6 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
   const {
     isGameOver,
     setIsGameOver,
-    isGameWin,
     setIsGameWin,
     firstClick,
     setfirstClick
@@ -69,11 +69,24 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
       className={classes}
       onContextMenu={(e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault()
-
         if (pick === 0 && setBombs && setNewTiles) {
           setPick(RightPick.flag);
           setBombs(bombs - 1)
           index && setNewTiles(pickedTiles(tiles.copeTyles, index, over))
+
+          const count: number = tiles.copeTyles.reduce((bombs, tile) => {
+            if (tile.picked && tile.bomb) {
+              return bombs + 1
+            } else {
+              return bombs
+            }
+          }, 0)
+
+
+          if(BOMBS === count){
+            setIsGameWin && setIsGameWin(BOMBS === count)
+            setEmoji && setEmoji(Emojies.Win)
+          }
         }
         if (pick === 1 && setBombs) {
           setPick(RightPick.question);
@@ -81,6 +94,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         } else if (pick === 2) {
           setPick(RightPick.noClickYet);
         }
+
       }}
       onMouseDown={() => {
         if (setEmoji) {
@@ -110,10 +124,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           return
         }
 
-        setIsGameWin && setIsGameWin(isWin(tiles.copeTyles, BOMBS))
-        if (isGameWin) {
-          setEmoji && setEmoji(Emojies.Win);
-        }
+
       }}
     ></button>
   );

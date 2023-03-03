@@ -1,4 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
+import { TIME } from "../const/const";
 
 interface TabloContextType {
     time: number,
@@ -11,12 +12,12 @@ interface Props {
 
 
 
-export const TabloContext = createContext<TabloContextType>({ time: 40 });
+export const TabloContext = createContext<TabloContextType>({ time: TIME });
 
 // тип AppContextType & { children: ReactNode } можно заменить на  PropsWithChildren<AppContextType> (mип из реакта)
 export const TabloContextProvider = ({ children }: Props): JSX.Element => {
 
-    const [time, setTime] = useState<number>(40)
+    const [time, setTime] = useState<number>(TIME)
 
 
     return (

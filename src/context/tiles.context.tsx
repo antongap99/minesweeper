@@ -1,5 +1,6 @@
 import { createContext, useState, ReactNode, FC } from "react";
 import { createAndshuffleTiles, ShuffleTiles } from "../components/Game/GameWindow/GameSquare/tilesControl";
+import { BOMBS, HEIGHT, WIDTH } from "../const/const";
 
 
 
@@ -9,12 +10,6 @@ export interface ITilesContext {
     isBombsShows: boolean;
     setBombsShows?: (isShow: boolean) => void;
 }
-
-
-
-export const WIDTH: number = 16;
-export const HEIGHT: number = 16;
-export const BOMBS: number = 40;
 
 
 export const TilesContext = createContext<ITilesContext>({

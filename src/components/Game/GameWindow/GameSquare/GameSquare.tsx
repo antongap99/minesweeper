@@ -6,10 +6,11 @@ import { TilesContext } from '../../../../context/tiles.context';
 
 interface Props {
   over: boolean
+  win: boolean
 }
 
 
-export const GameSquare = ({ over }: Props) => {
+export const GameSquare = ({ over, win }: Props) => {
 
   const { tiles } = useContext(TilesContext);
 
@@ -17,7 +18,9 @@ export const GameSquare = ({ over }: Props) => {
     <div className={
       cn(style.container,
         'border-reverse',
-        { [style.over]: over })}>
+        { [style.over]: over,
+          [style.win]: win,
+        })}>
       {
         tiles.tilesJSX
       }

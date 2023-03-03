@@ -1,4 +1,5 @@
 
+import { HEIGHT, WIDTH } from "../../../../const/const"
 import { Tile } from "./Tile/Tile"
 
 interface IArrayWithKeys {
@@ -10,10 +11,6 @@ interface IArrayWithKeys {
     picked: boolean
 }
 
-
-export const WIDTH: number = 16;
-export const HEIGHT: number = 16;
-export const BOMBS: number = 40;
 
 
 export const generatRandomId = () =>
@@ -281,7 +278,7 @@ export const isWin = (
             count++
         }
     })
-
+    console.log(count);
     if (count === bombs) {
         return true
     } else {

@@ -16,7 +16,7 @@
 }
 
 .question {
-    background: url('./icons/qust.svg') center center no-repeat;
+    background: url('./icons/qust.svg')  no-repeat;
 }
 
 .bomb {

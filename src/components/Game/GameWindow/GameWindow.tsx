@@ -12,8 +12,7 @@ import { GameContext } from '../../../context/game.context';
 
 export const GameWindow = () => {
 
-  const { isGameOver } = useContext(GameContext)
-
+  const { isGameOver, isGameWin } = useContext(GameContext)
 
   return (
 
@@ -22,7 +21,7 @@ export const GameWindow = () => {
         <BombsContextProvider>
           <div className={cn(style.window, 'border')}>
             <Tablo />
-            <GameSquare over={isGameOver} />
+            <GameSquare over={isGameOver} win={isGameWin}  />
           </div>
         </BombsContextProvider>
       </SmilesContextProvider>

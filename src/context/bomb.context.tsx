@@ -1,4 +1,6 @@
 import { createContext, useState,  ReactNode } from "react";
+import { BOMBS } from "../const/const";
+
 
 export interface BombsContextType {
     bombs:number,
@@ -11,12 +13,12 @@ interface Props {
 
 
 
-export const BombsContext = createContext<BombsContextType>({bombs: 40});
+export const BombsContext = createContext<BombsContextType>({ bombs: BOMBS });
 
 // тип AppContextType & { children: ReactNode } можно заменить на  PropsWithChildren<AppContextType> (mип из реакта)
 export const BombsContextProvider = ({ children }: Props): JSX.Element => {
 
-    const [bombs, setBombs] = useState<number>(40)
+    const [bombs, setBombs] = useState<number>(BOMBS)
 
 
 
