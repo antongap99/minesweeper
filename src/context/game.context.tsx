@@ -16,7 +16,7 @@ export interface IGameContext {
 export const GameContext = createContext<IGameContext>({
     isGameOver: false,
     isGameWin: false,
-    firstClick: true
+    firstClick: true,
 });
 
 type ProviderProps = {
@@ -28,9 +28,10 @@ export const GameContextProvider: FC<ProviderProps> = ({ children }: ProviderPro
     const [isGameOver, setIsGameOver] = useState<boolean>(false)
     const [isGameWin, setIsGameWin] = useState<boolean>(false)
 
+
     return (
         <GameContext.Provider value={{
-            isGameOver, setIsGameOver, isGameWin, setIsGameWin, firstClick, setfirstClick
+            isGameOver, setIsGameOver, isGameWin, setIsGameWin, firstClick, setfirstClick,
 }}>
             {children}
         </GameContext.Provider>

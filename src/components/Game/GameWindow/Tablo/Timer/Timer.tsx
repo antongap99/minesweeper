@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import style from './Timer.module.css';
 import { timeUpdate } from '../counthelper';
 
@@ -9,14 +9,12 @@ import { GameContext } from '../../../../../context/game.context';
 
 export const Timer = () => {
   const { time, setTime } = useContext(TabloContext)
-  const [over, setOver] = useState<boolean>(false)
-  const { isGameOver, isGameWin } = useContext(GameContext)
+  const { isGameOver, setIsGameOver , isGameWin } = useContext(GameContext)
 
   const tick = () => {
-    if (over) return;
+    if (isGameOver) return;
 
-    if (time === 2400 || isGameWin || isGameOver) {
-      setOver(true)
+    if ( isGameWin || isGameOver) {
       return;
     }
     setTime && setTime(time + 1)
@@ -44,7 +42,7 @@ export const Timer = () => {
   return (
     <div className={style.timer}>
       {
-        !over  ? (
+        !setIsGameOver  ? (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)
         ) : (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)

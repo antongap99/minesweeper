@@ -21,11 +21,18 @@ export const Smile: FC = () => {
   const { emoji, setEmoji } = useContext(SmilesContext);
   const { setNewTiles } = useContext(TilesContext)
   const { setBombs } = useContext(BombsContext)
-  const { isGameOver, setIsGameOver , setfirstClick, firstClick} = useContext(GameContext)
+  const {
+     isGameOver,
+    setIsGameOver ,
+     setfirstClick,
+     firstClick,
+     setIsGameWin
+    } = useContext(GameContext)
   const { setTime } = useContext(TabloContext);
 
   const UpdateGame = () => {
     setIsGameOver && setIsGameOver(false)
+    setIsGameWin && setIsGameWin(false)
     setfirstClick && setfirstClick(true)
     setNewTiles && setNewTiles(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, firstClick, isGameOver))
     setEmoji && setEmoji(Emojies.Smile)
