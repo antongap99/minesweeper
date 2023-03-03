@@ -47,8 +47,8 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
   const classes = cn(style.tile, {
     [style.picked]: pick === 1,
     [style.question]: pick === 2,
-    [style.over]: isGameOver && bomb,
-    [style.cross]: pick === 1 && isGameOver,
+    [style.over]: isGameOver && bomb && pick !== 1 ,
+    [style.cross]: pick === 1 && isGameOver && !bomb,
     [style.bomb]: isTargetBomb,
     [style.tile0]: nearByBombs === 0 && open,
     [style.tile1]: nearByBombs === 1 && open,

@@ -20,7 +20,8 @@
 }
 
 .cross {
-    background: url('./icons/cross.svg') no-repeat;
+    background-image: url('./icons/flag.svg'), url('./icons/cross.svg');
+
 }
 
 .bomb {
