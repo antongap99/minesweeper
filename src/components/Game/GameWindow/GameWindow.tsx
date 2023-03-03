@@ -2,22 +2,32 @@ import style from './GameWindow.module.css';
 import cn from 'classnames'
 import { GameSquare } from './GameSquare/GameSquare';
 import { Tablo } from './Tablo/Tablo';
-import { useState } from 'react';
 import { BombsContextProvider } from '../../../context/bomb.context';
-interface Props {
+import { SmilesContextProvider } from '../../../context/smile.context';
+import { TilesContextProvider } from '../../../context/tiles.context';
+import { useContext } from 'react';
+import { GameContext } from '../../../context/game.context';
 
-};
 
 
-export const GameWindow = (props: Props) => {
-  const [bombs, setBombs] = useState<number>(40)
+export const GameWindow = () => {
+
+  const { isGameOver } = useContext(GameContext)
+
+
   return (
-    <BombsContextProvider bombs={bombs} updateSquare={setBombs}>
-      <div className={cn(style.window, 'border')}>
-        <Tablo />
-        <GameSquare />
-      </div>
-    </BombsContextProvider>
+
+    <TilesContextProvider isGameOver={isGameOver}>
+      <SmilesContextProvider>
+        <BombsContextProvider>
+          <div className={cn(style.window, 'border')}>
+            <Tablo />
+            <GameSquare over={isGameOver} />
+          </div>
+        </BombsContextProvider>
+      </SmilesContextProvider>
+    </TilesContextProvider>
+
   );
 };
 

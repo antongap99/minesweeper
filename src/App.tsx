@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import  Game  from "./components/Game/Game";
-import  Start  from "./components/Start/Start";
+import Game from "./components/Game/Game";
+import Start from "./components/Start/Start";
+import { GameContextProvider } from "./context/game.context";
 
 export const App: React.FC = () => {
   const [begin, setBegin] = useState<boolean>(true);
@@ -9,7 +10,7 @@ export const App: React.FC = () => {
     setBegin(true);
   };
   const endGame = (): void => {
-    if(begin){
+    if (begin) {
       setBegin(false);
     }
   };
@@ -17,9 +18,11 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       {!begin ? (
-        <Start startGame={startGame }/>
+        <Start startGame={startGame} />
       ) : (
-          <Game endGame={endGame}/>
+        <GameContextProvider>
+          <Game endGame={endGame} />
+        </GameContextProvider>
       )}
     </div>
   );

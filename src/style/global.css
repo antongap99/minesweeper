@@ -3,6 +3,7 @@
     --white: #FFF;
     --gray-light: #EBEBEB;
     --primary: #BFBFBF;
+    --bombBg: #FC0D1B;
 }
 
 @font-face {
@@ -45,3 +46,5 @@ body {
     width: 24px;
     height: 24px;
 }
+
+

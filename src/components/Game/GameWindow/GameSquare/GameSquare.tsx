@@ -1,27 +1,25 @@
 import style from './GameSquare.module.css';
 import cn from 'classnames'
-import { Tile } from './Tile/Tile';
 import { useContext } from 'react';
-import { BombsContext } from '../../../../context/bomb.context';
+import { TilesContext } from '../../../../context/tiles.context';
 
 
+interface Props {
+  over: boolean
+}
 
-export const GameSquare = () => {
 
-  const {bombs} = useContext(BombsContext);
-  const arr = []
+export const GameSquare = ({ over }: Props) => {
 
-  const tileHadle = (e: any) => {
-    console.log(e);
-  }
+  const { tiles } = useContext(TilesContext);
 
-  for (let i = 0; i < 16  * 16; i++) {
-    arr.push(<Tile key={i} onClick={tileHadle}  />)
-  }
   return (
-    <div className={cn(style.container, 'border-reverse')}>
+    <div className={
+      cn(style.container,
+        'border-reverse',
+        { [style.over]: over })}>
       {
-        arr
+        tiles.tilesJSX
       }
     </div>
   );

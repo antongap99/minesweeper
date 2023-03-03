@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import style from './Timer.module.css';
 import { counterUpdate } from '../counthelper';
 import Zero from '../img/zero.svg';
+import { TabloContext } from '../../../../../context/Tablo.context';
 
 
 
 export const Timer = () => {
-  const [time, setTime] = useState<number>(40);
+  const { time, setTime } = useContext(TabloContext)
   const [over, setOver] = useState<boolean>(false)
-  // const [icons, setIcons] = useState<string[]>(counterUpdate(time));
 
 
   const tick = () => {
@@ -18,7 +18,7 @@ export const Timer = () => {
       setOver(true)
       return;
     }
-    setTime(time - 1)
+    setTime && setTime(time - 1)
   }
 
 

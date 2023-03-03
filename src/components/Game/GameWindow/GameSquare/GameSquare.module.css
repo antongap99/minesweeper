@@ -5,3 +5,8 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+
+.over {
+    pointer-events: none;
+}
