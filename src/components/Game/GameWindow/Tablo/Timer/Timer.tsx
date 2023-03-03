@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import style from './Timer.module.css';
-import { counterUpdate } from '../counthelper';
+import { timeUpdate } from '../counthelper';
 import Zero from '../img/zero.svg';
 import { TabloContext } from '../../../../../context/Tablo.context';
 
@@ -14,11 +14,11 @@ export const Timer = () => {
   const tick = () => {
     if (over) return;
 
-    if (time === 0) {
+    if (time === 2400) {
       setOver(true)
       return;
     }
-    setTime && setTime(time - 1)
+    setTime && setTime(time + 1)
   }
 
 
@@ -28,7 +28,7 @@ export const Timer = () => {
       () => {
         tick()
       },
-      60000
+      1000
     );
 
     return () => {
@@ -38,7 +38,7 @@ export const Timer = () => {
 
 
 
-  const icons = counterUpdate(time)
+  const icons = timeUpdate(time)
 
   return (
     <div className={style.timer}>

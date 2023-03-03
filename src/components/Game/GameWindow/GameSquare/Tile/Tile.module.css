@@ -19,6 +19,10 @@
     background: url('./icons/qust.svg')  no-repeat;
 }
 
+.cross {
+    background: url('./icons/cross.svg') no-repeat;
+}
+
 .bomb {
     border: none;
     background-color: var(--bombBg);
@@ -48,6 +52,7 @@
     border: none;
     background-position: center center;
     background-repeat: no-repeat;
+    pointer-events: none;
 }
 
 .tile0 {

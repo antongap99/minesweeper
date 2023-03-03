@@ -204,6 +204,7 @@ export const openTiles = (
 
     if (firstClick) {
         newTilesArr = Array.from(firstClickGuard(copyArr, index));
+        newTilesArr[index].picked = true
         newTilesArr.forEach(tile => tile.value = 0)
         const putNumber = (row: number, col: number) => {
             const idx = row * width + col;
@@ -226,6 +227,7 @@ export const openTiles = (
         }
     } else {
         newTilesArr = Array.from(copyArr);
+        newTilesArr[index].picked = true
     }
 
 

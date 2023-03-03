@@ -12,10 +12,6 @@ interface Props extends Record<string, unknown> {
 
 const Game = ({ endGame }: Props) => {
   const { isGameOver, isGameWin } = useContext(GameContext)
-  console.log(isGameOver);
-  console.log(isGameWin);
-
-
 
   return (
     <div className={style.wrapper}>

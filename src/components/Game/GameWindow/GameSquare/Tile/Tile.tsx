@@ -4,8 +4,8 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, SyntheticEvent, useContext, us
 import { BombsContext } from '../../../../../context/bomb.context';
 import { SmilesContext } from '../../../../../context/smile.context';
 import { Emojies } from '../../../../../context/smile.context';
-import { TilesContext} from '../../../../../context/tiles.context';
-import { openTiles, pickedTiles} from '../tilesControl';
+import { TilesContext } from '../../../../../context/tiles.context';
+import { openTiles, pickedTiles } from '../tilesControl';
 import { GameContext } from '../../../../../context/game.context';
 import { BOMBS, HEIGHT, WIDTH } from '../../../../../const/const';
 
@@ -40,14 +40,15 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
     setIsGameWin,
     firstClick,
     setfirstClick
-} = useContext(GameContext)
-  const { tiles, setNewTiles} = useContext(TilesContext)
+  } = useContext(GameContext)
+  const { tiles, setNewTiles } = useContext(TilesContext)
 
   // isGameOver
   const classes = cn(style.tile, {
     [style.picked]: pick === 1,
     [style.question]: pick === 2,
     [style.over]: isGameOver && bomb,
+    [style.cross]: pick === 1 && isGameOver,
     [style.bomb]: isTargetBomb,
     [style.tile0]: nearByBombs === 0 && open,
     [style.tile1]: nearByBombs === 1 && open,
@@ -74,20 +75,20 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           setBombs(bombs - 1)
           index && setNewTiles(pickedTiles(tiles.copeTyles, index, over))
 
-          const count: number = tiles.copeTyles.reduce((bombs, tile) => {
-            if (tile.picked && tile.bomb) {
-              return bombs + 1
-            } else {
-              return bombs
-            }
-          }, 0)
+          // const count: number = tiles.copeTyles.reduce((bombs, tile) => {
+          //   if (tile.picked && tile.bomb) {
+          //     return bombs + 1
+          //   } else {
+          //     return bombs
+          //   }
+          // }, 0)
 
-
-          if(BOMBS === count){
-            setIsGameWin && setIsGameWin(BOMBS === count)
-            setEmoji && setEmoji(Emojies.Win)
-          }
+          // if(BOMBS === count){
+          //   setIsGameWin && setIsGameWin(BOMBS === count)
+          //   setEmoji && setEmoji(Emojies.Win)
+          // }
         }
+
         if (pick === 1 && setBombs) {
           setPick(RightPick.question);
           setBombs(bombs + 1)
@@ -124,6 +125,18 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           return
         }
 
+        const openedTiles: number = tiles.copeTyles.reduce((bombs, tile) => {
+          if ((tile.picked || tile.open) && !tile.bomb) {
+            return bombs + 1
+          } else {
+            return bombs
+          }
+        }, 0)
+
+        if (openedTiles === WIDTH * HEIGHT - BOMBS) {
+          setIsGameWin && setIsGameWin(openedTiles === WIDTH * HEIGHT - BOMBS)
+          setEmoji && setEmoji(Emojies.Win)
+        }
 
       }}
     ></button>
