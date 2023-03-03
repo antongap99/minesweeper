@@ -20,14 +20,14 @@ const Game = ({ endGame }: Props) => {
       {
       !isGameOver ? (
         isGameWin ? (
-        <h1>Вы выиграли</h1>
+            <h1 className={style.win}>Вы выиграли</h1>
         )
         :
         (
         <h1>Сапер</h1>
         )
       ) : (
-        <h1>Игра окончена</h1>
+            <h1 className={style.lose}>Игра окончена</h1>
       )
       }
       <GameWindow />

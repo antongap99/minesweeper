@@ -5,3 +5,12 @@
     justify-content: center;
     gap: 20px;
 }
+
+.win {
+    font-size: 32px;
+    color: greenyellow
+}
+
+.lose {
+    color: tomato
+}

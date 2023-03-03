@@ -11,7 +11,8 @@ import { GameContext } from '../../../../../context/game.context';
 import { TilesContext } from '../../../../../context/tiles.context';
 import { createAndshuffleTiles } from '../../GameSquare/tilesControl';
 import { TabloContext } from '../../../../../context/Tablo.context';
-import { BOMBS, HEIGHT, WIDTH } from '../../../../../const/const';
+import { BOMBS, HEIGHT, TIME, WIDTH } from '../../../../../const/const';
+
 
 
 
@@ -21,14 +22,15 @@ export const Smile: FC = () => {
   const { setNewTiles } = useContext(TilesContext)
   const { setBombs } = useContext(BombsContext)
   const { isGameOver, setIsGameOver , setfirstClick, firstClick} = useContext(GameContext)
-  const { setTime } = useContext(TabloContext)
-  const startGame = () => {
+  const { setTime } = useContext(TabloContext);
+
+  const UpdateGame = () => {
     setIsGameOver && setIsGameOver(false)
     setfirstClick && setfirstClick(true)
     setNewTiles && setNewTiles(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, firstClick, isGameOver))
     setEmoji && setEmoji(Emojies.Smile)
     setBombs && setBombs(BOMBS);
-    setTime && setTime(40)
+    setTime && setTime(TIME)
   }
 
 
@@ -49,7 +51,7 @@ export const Smile: FC = () => {
 
 
   return (
-    <div onClick={startGame} className={cn(style.smile, 'border')}>
+    <div onClick={UpdateGame} className={cn(style.smile, 'border')}>
       {renderSwitch(emoji)}
     </div>
   )

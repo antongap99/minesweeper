@@ -74,19 +74,6 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           setPick(RightPick.flag);
           setBombs(bombs - 1)
           index && setNewTiles(pickedTiles(tiles.copeTyles, index, over))
-
-          // const count: number = tiles.copeTyles.reduce((bombs, tile) => {
-          //   if (tile.picked && tile.bomb) {
-          //     return bombs + 1
-          //   } else {
-          //     return bombs
-          //   }
-          // }, 0)
-
-          // if(BOMBS === count){
-          //   setIsGameWin && setIsGameWin(BOMBS === count)
-          //   setEmoji && setEmoji(Emojies.Win)
-          // }
         }
 
         if (pick === 1 && setBombs) {
