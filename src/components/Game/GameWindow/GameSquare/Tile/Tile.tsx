@@ -5,7 +5,7 @@ import { BombsContext } from '../../../../../context/bomb.context';
 import { SmilesContext } from '../../../../../context/smile.context';
 import { Emojies } from '../../../../../context/smile.context';
 import { HEIGHT, TilesContext, WIDTH, BOMBS } from '../../../../../context/tiles.context';
-import { openTiles, createAndshuffleTiles, pickedTiles, isWin } from '../tilesControl';
+import { openTiles, pickedTiles, isWin } from '../tilesControl';
 import { GameContext } from '../../../../../context/game.context';
 
 interface TileProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -32,14 +32,16 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
   const [pick, setPick] = useState<RightPick>(RightPick.noClickYet)
   const { bombs, setBombs } = useContext(BombsContext);
   const { setEmoji } = useContext(SmilesContext);
-  const [isTargetBomb, setisTargetBomb] = useState<boolean>(false);
-  const { isGameOver, setIsGameOver, isGameWin, setIsGameWin } = useContext(GameContext)
+  const [isTargetBomb, setIsTargetBomb] = useState<boolean>(false);
   const {
-    tiles,
-    isFirstPick,
-    setIsFirstPick,
-    setNewTiles,
-  } = useContext(TilesContext)
+    isGameOver,
+    setIsGameOver,
+    isGameWin,
+    setIsGameWin,
+    firstClick,
+    setfirstClick
+} = useContext(GameContext)
+  const { tiles, setNewTiles} = useContext(TilesContext)
 
   // isGameOver
   const classes = cn(style.tile, {
@@ -94,19 +96,16 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           return;
         }
 
-        if (isFirstPick && bomb && setNewTiles) {
-          console.log(bomb);
-          index && setNewTiles(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, isGameOver, index))
-          index && setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, isFirstPick, isGameOver ))
+        if (firstClick && bomb && setNewTiles) {
 
-          setIsFirstPick && setIsFirstPick(false);
+          index && setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
+          setfirstClick && setfirstClick(false);
         } else if (!bomb && setNewTiles) {
-          setIsFirstPick && setIsFirstPick(false);
-          index && setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, isFirstPick, isGameOver))
+          setfirstClick && setfirstClick(false);
+          index && setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
 
-        } else if (!isFirstPick && bomb) {
-
-          setisTargetBomb(true);
+        } else if (!firstClick && bomb) {
+          setIsTargetBomb(true);
           setEmoji && setEmoji(Emojies.Sed);
           setIsGameOver && setIsGameOver(true)
 

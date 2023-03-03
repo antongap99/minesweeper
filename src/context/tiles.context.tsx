@@ -6,11 +6,8 @@ import { createAndshuffleTiles, ShuffleTiles } from "../components/Game/GameWind
 export interface ITilesContext {
     tiles: ShuffleTiles
     setNewTiles?: (newTiles: ShuffleTiles) => void;
-    isFirstPick:boolean;
-    setIsFirstPick?: (newTiles: boolean) => void;
     isBombsShows: boolean;
     setBombsShows?: (isShow: boolean) => void;
-
 }
 
 
@@ -22,7 +19,6 @@ export const BOMBS: number = 40;
 
 export const TilesContext = createContext<ITilesContext>({
     tiles: createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, false),
-    isFirstPick: false,
     isBombsShows:false,
 });
 
@@ -33,7 +29,7 @@ type ProviderProps = {
 
 export const TilesContextProvider: FC<ProviderProps> = ({ children, isGameOver }: ProviderProps) => {
     const [tiles, setTiles] = useState<ShuffleTiles>(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, isGameOver))
-    const [isFirstPick, setIsFirstPick] = useState<boolean>(true);
+
     const [isBombsShows, setBombsShows] = useState<boolean>(false);
     // const [open, setOpen] = useState<boolean>(false)
 
@@ -43,7 +39,7 @@ export const TilesContextProvider: FC<ProviderProps> = ({ children, isGameOver }
 
     return (
         <TilesContext.Provider value={{
-            tiles, setNewTiles, isFirstPick, setIsFirstPick, isBombsShows, setBombsShows  }}>
+            tiles, setNewTiles, isBombsShows, setBombsShows  }}>
             {children}
         </TilesContext.Provider>
     )

@@ -113,19 +113,32 @@ export const createAndshuffleTiles = (
     width: number,
     height: number,
     bombs: number,
+    firstClick: boolean,
     over?: boolean,
     index?: number,
 ): ShuffleTiles => {
 
     if (!over) over = false
-
-
+    // расставляю бомбы и ключи
     const arrWithBombs = addBombs(width, height, bombs)
 
+    // сортирую
     arrWithBombs.sort(() => Math.random() - 0.5)
 
-    const tiles = addCoordinates(arrWithBombs, width)
+    // добавляю координаты
+    const tilesWithCoordinates = addCoordinates(arrWithBombs, width)
 
+
+    //  первое нажатие (переставлю бомбу на первую безопасную ячейку)
+    let tiles: IArrayWithKeys[] = []
+    if (index && firstClick) {
+        tiles = firstClickGuard(tilesWithCoordinates, index)
+    } else {
+        tiles = tilesWithCoordinates
+    }
+
+
+    //  расставлю цифры
     const putNumber = (row: number, col: number) => {
 
         const idx = row * width + col;
@@ -194,6 +207,26 @@ export const openTiles = (
 
     if (firstClick) {
         newTilesArr = Array.from(firstClickGuard(copyArr, index));
+        newTilesArr.forEach(tile => tile.value = 0)
+        const putNumber = (row: number, col: number) => {
+            const idx = row * width + col;
+            if (!isValidCoordinates(row, col)) return;
+            newTilesArr[idx].value += 1
+        }
+
+        for (let i = 0; i < newTilesArr.length; i++) {
+            if (newTilesArr[i].bomb) {
+                const [row, col] = newTilesArr[i].сoordinates
+                putNumber(row - 1, col)
+                putNumber(row + 1, col)
+                putNumber(row + 1, col + 1)
+                putNumber(row - 1, col - 1)
+                putNumber(row - 1, col + 1)
+                putNumber(row + 1, col - 1)
+                putNumber(row, col + 1)
+                putNumber(row, col - 1)
+            }
+        }
     } else {
         newTilesArr = Array.from(copyArr);
     }
