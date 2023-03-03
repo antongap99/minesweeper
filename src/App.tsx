@@ -4,7 +4,7 @@ import Start from "./components/Start/Start";
 import { GameContextProvider } from "./context/game.context";
 
 export const App: React.FC = () => {
-  const [begin, setBegin] = useState<boolean>(true);
+  const [begin, setBegin] = useState<boolean>(false);
 
   const startGame = (): void => {
     setBegin(true);

@@ -4,6 +4,7 @@
     min-width: 320px;
     align-items: center;
     background: var(--primary);
+    padding: 10px;
 }
 
 .title {

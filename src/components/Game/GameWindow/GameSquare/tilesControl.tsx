@@ -20,7 +20,7 @@ export const generatRandomId = () =>
     Math.random().toString(36).substring(2, 8) +
     Date.now().toString().substring(9);
 
-export const searchSaveTile = (array: IArrayWithKeys[], coordinates: number): number => {
+export const    searchSaveTile = (array: IArrayWithKeys[], coordinates: number): number => {
     return array.findIndex((item, idx) => !item.bomb && idx !== coordinates);
 }
 
@@ -277,7 +277,9 @@ export const isWin = (
 ) => {
     let count: number = 0
     tiles.forEach((tile) => {
-        tile.picked && count++
+        if (tile.picked && tile.bomb){
+            count++
+        }
     })
 
     if (count === bombs) {

@@ -96,19 +96,18 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           return;
         }
 
-        if (firstClick && bomb && setNewTiles) {
-
-          index && setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
+        if (firstClick && setNewTiles) {
+          setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
           setfirstClick && setfirstClick(false);
-        } else if (!bomb && setNewTiles) {
-          setfirstClick && setfirstClick(false);
-          index && setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
-
-        } else if (!firstClick && bomb) {
+        }
+        if (!firstClick && !bomb && setNewTiles) {
+          setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
+        }
+        if (!firstClick && bomb) {
           setIsTargetBomb(true);
           setEmoji && setEmoji(Emojies.Sed);
           setIsGameOver && setIsGameOver(true)
-
+          return
         }
 
         setIsGameWin && setIsGameWin(isWin(tiles.copeTyles, BOMBS))
