@@ -3,14 +3,13 @@ import cn from 'classnames'
 import { BombCounter } from './BombCounter/BombCounter';
 import { Timer } from './Timer/Timer';
 import { Smile } from './Smile/Smile';
-interface Props {
-
-};
+import { TabloContextProvider } from '../../../../context/Tablo.context';
 
 
-export const Tablo = (props: Props) => {
+export const Tablo = () => {
 
   return (
+    <TabloContextProvider>
       <div className={cn(style.wrapper)}>
         <div className={cn(style.tablo, 'border-reverse')}>
           <BombCounter />
@@ -18,6 +17,7 @@ export const Tablo = (props: Props) => {
           <Timer />
         </div>
       </div>
+    </TabloContextProvider>
   );
 };
 

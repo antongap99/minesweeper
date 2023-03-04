@@ -1,38 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import style from './Timer.module.css';
 import { timeUpdate } from '../counthelper';
-import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
-import { gameActions } from '../../../../../store/game/gameSlice';
+
+import { TabloContext } from '../../../../../context/Tablo.context';
+import { useAppSelector } from '../../../../../store/hooks';
+
 
 
 
 export const Timer = () => {
-  const dispatch = useAppDispatch()
-  const { isGameOver, isGameWin, time } = useAppSelector(state => state.game)
+  const { time, setTime } = useContext(TabloContext)
+  const { isGameOver, isGameWin } = useAppSelector(state => state.game)
 
   const tick = () => {
+    let rafSeconds = 0;
+    const rafStart = Date.now();
     if (isGameOver) return;
-
     if (isGameWin || isGameOver) {
       return;
     }
-    dispatch(gameActions.updateTime(time + 1))
 
+    const seconds = (Date.now() - rafStart) / 1000 | 0
+
+    if (rafSeconds !== seconds) {
+      setTime && setTime(time + 1)
+    }
+    window.requestAnimationFrame(tick)
   }
 
 
 
   useEffect(() => {
-    let timerID = setInterval(
-      () => {
-        tick()
-      },
-      1000
-    );
-
-    return () => {
-      clearInterval(timerID)
-    }
+    tick()
   })
 
 
@@ -42,7 +41,7 @@ export const Timer = () => {
   return (
     <div className={style.timer}>
       {
-        !isGameOver  ? (
+        !isGameOver ? (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)
         ) : (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)

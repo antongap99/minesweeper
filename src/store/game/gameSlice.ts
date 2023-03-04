@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { BOMBS, TIME } from '../../const/const'
+import { BOMBS } from '../../const/const'
 
 
 interface IState {
@@ -7,7 +7,6 @@ interface IState {
     isGameOver: boolean,
     isGameWin: boolean,
     bombCount: number
-    time:number
 }
 
 const initialState:IState = {
@@ -15,7 +14,6 @@ const initialState:IState = {
     isGameOver: false,
     isGameWin: false,
     bombCount: BOMBS,
-    time: TIME
 }
 
 export const gameSlice = createSlice({
@@ -36,18 +34,56 @@ export const gameSlice = createSlice({
             state.isGameOver = action.payload.isGameOver
             state.isGameWin = action.payload.isGameWin
             state.bombCount = action.payload.bombCount
-            state.time = action.payload.time
         },
         updateBomb: (state, action: PayloadAction<number>) => {
             state.bombCount = action.payload
         },
-        updateTime: (state, action: PayloadAction<number>) => {
-            state.time = action.payload
-        },
-
     }
 })
 
 export default gameSlice.reducer;
 
 export const gameActions =  gameSlice.actions
+
+
+
+
+
+
+// const initialTime = {
+//     seconds: 0,
+//     start_time: 0,
+//     status: 'paused',
+//     decrement_interval: 0
+// }
+
+// const countdownTimer = (state = initialState, action) => {
+//     switch (action.type) {
+//         case 'START_TIMER':
+//             return Object.assign(
+//                 {},
+//                 state,
+//                 {
+//                     start_time: action.start_time,
+//                     seconds: action.start_time,
+//                     status: 'counting down'
+//                 }
+//             );
+//         case 'STOP_TIMER':
+//             return Object.assign(
+//                 {},
+//                 state,
+//                 { status: 'paused' }
+//             );
+//         case 'TICK':
+//             return Object.assign(
+//                 {},
+//                 state,
+//                 { seconds: (state.seconds - .01).toFixed(2) }
+//             );
+//         default:
+//             return state;
+//     }
+// }
+
+// const store = Redux.createStore(countdownTimer);
