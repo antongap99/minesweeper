@@ -1,6 +1,6 @@
 
 import { HEIGHT, WIDTH } from "../const/const"
-import { IArrayWithKeys, ShuffleTiles } from "../types/tilesType";
+import { IArrayWithKeys } from "../types/tilesType";
 import { Tile } from "../components/Game/GameWindow/GameSquare/Tile/Tile"
 
 
@@ -78,8 +78,24 @@ function createHelpers() {
         return tilesWithCoordinates
     }
 
+    const arrayFrom = (arr: IArrayWithKeys[]): IArrayWithKeys[] => {
+        const tiles = arr.map(item => {
+            return {
+                key: item.key,
+                picked: item.picked,
+                bomb: item.bomb,
+                сoordinates: item.сoordinates,
+                value: item.value,
+                open: item.open,
+            }
+        }
+        )
+
+        return tiles
+    }
+
     const firstClickGuard = (arr: IArrayWithKeys[], index: number) => {
-        const tiles = Array.from(arr);
+        const tiles = arrayFrom(arr);
         for (let i = 0; i < tiles.length; i++) {
             if (i === index && tiles[i].bomb) {
                 const inx = searchSaveTile(tiles, i);
@@ -90,7 +106,10 @@ function createHelpers() {
 
         return tiles
     }
+
+
     return {
+        arrayFrom,
         generatRandomId,
         searchSaveTile,
         isValidCoordinates,
@@ -102,44 +121,6 @@ function createHelpers() {
 }
 
 
-// export const createTilesJSX = (arr: IArrayWithKeys[], over: boolean)  => {
-//     const tilesJSX: JSX.Element[] = [];
-//     console.dir( tilesJSX);
-//     console.log(Tile);
-// debugger
-//     for (let i = 0; i < arr.length; i++) {
-//         if (arr[i].bomb) {
-//             tilesJSX.push(
-//                 <Tile
-//                     key={arr[i].key}
-//                     bomb={true}
-//                     coordinates={arr[i].сoordinates}
-//                     over={over}
-//                     index={i}
-//                     open={arr[i].open}
-//                     picked={arr[i].picked}
-//                 />
-//             )
-//         } else {
-//             tilesJSX.push(
-//                 <Tile
-//                     key={arr[i].key}
-//                     bomb={false}
-//                     coordinates={arr[i].сoordinates}
-//                     nearByBombs={arr[i].value}
-//                     open={arr[i].open}
-//                     over={over}
-//                     index={i}
-//                     picked={arr[i].picked}
-//                 />
-//             )
-//         }
-//     }
-
-//     return tilesJSX
-// }
-
-
 export function createShuffledTiles(
     width: number,
     height: number,
@@ -147,7 +128,7 @@ export function createShuffledTiles(
     firstClick: boolean,
     over?: boolean,
     index?: number,
-): ShuffleTiles {
+): IArrayWithKeys[] {
     const helpers = createHelpers()
     if (!over) over = false
     // расставляю бомбы и ключи
@@ -191,12 +172,9 @@ export function createShuffledTiles(
         }
     }
 
-    const tilesJSX = helpers.createTilesJSX(tiles, over)
+    // const tilesJSX = helpers.createTilesJSX(tiles, over)
 
-    return {
-        tilesJSX,
-        copeTyles: tiles
-    };
+    return tiles
 }
 
 
@@ -211,7 +189,7 @@ export function openTiles(
     height: number,
     firstClick: boolean,
     over: boolean,
-): ShuffleTiles{
+):IArrayWithKeys[]{
     const helpers = createHelpers()
     const open = (row: number, col: number) => {
         const idx = row * width + col;
@@ -238,7 +216,7 @@ export function openTiles(
 
 
     if (firstClick) {
-        newTilesArr = Array.from(helpers.firstClickGuard(copyArr, index));
+        newTilesArr = helpers.arrayFrom(helpers.firstClickGuard(copyArr, index));
         newTilesArr[index].picked = true
         newTilesArr.forEach(tile => tile.value = 0)
         const putNumber = (row: number, col: number) => {
@@ -261,7 +239,7 @@ export function openTiles(
             }
         }
     } else {
-        newTilesArr = Array.from(copyArr);
+        newTilesArr = helpers.arrayFrom(copyArr);
         newTilesArr[index].picked = true
     }
 
@@ -275,14 +253,9 @@ export function openTiles(
 
 
 
-    // создание компонентов
-    const tilesJSX =helpers.createTilesJSX(newTilesArr, over)
 
 
-    return {
-        tilesJSX,
-        copeTyles: newTilesArr
-    }
+    return newTilesArr
 }
 
 
@@ -290,18 +263,13 @@ export function openTiles(
 export const pickedTiles = (
     copyArr: IArrayWithKeys[],
     index: number,
-    over: boolean): ShuffleTiles => {
+    over: boolean):IArrayWithKeys[] => {
     const helpers = createHelpers()
-    const newTilesArr = Array.from(copyArr);
+    const newTilesArr = helpers.arrayFrom(copyArr);
 
     newTilesArr[index].picked = true;
 
-    const tilesJSX = helpers.createTilesJSX(newTilesArr, over)
-
-    return {
-        tilesJSX,
-        copeTyles: newTilesArr
-    }
+    return newTilesArr
 }
 
 
@@ -315,10 +283,10 @@ export const isWin = (
             count++
         }
     })
-    console.log(count);
     if (count === bombs) {
         return true
     } else {
         return false
     }
 }
+

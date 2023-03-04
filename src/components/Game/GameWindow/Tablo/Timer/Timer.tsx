@@ -1,15 +1,14 @@
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import style from './Timer.module.css';
 import { timeUpdate } from '../counthelper';
-
-import { TabloContext } from '../../../../../context/Tablo.context';
-import { useAppSelector } from '../../../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
+import { gameActions } from '../../../../../store/game/gameSlice';
 
 
 
 export const Timer = () => {
-  const { time, setTime } = useContext(TabloContext)
-  const { isGameOver, isGameWin } = useAppSelector(state => state.game)
+  const dispatch = useAppDispatch()
+  const { isGameOver, isGameWin, time } = useAppSelector(state => state.game)
 
   const tick = () => {
     if (isGameOver) return;
@@ -17,7 +16,8 @@ export const Timer = () => {
     if (isGameWin || isGameOver) {
       return;
     }
-    setTime && setTime(time + 1)
+    dispatch(gameActions.updateTime(time + 1))
+
   }
 
 

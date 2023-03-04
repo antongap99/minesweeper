@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { createShuffledTiles } from '../../control/tilesControl'
 import { BOMBS, HEIGHT, WIDTH } from '../../const/const'
-import { ShuffleTiles } from '../../types/tilesType'
+import { IArrayWithKeys } from '../../types/tilesType'
 
 interface IStateTiles {
-    tiles: ShuffleTiles,
+    tiles: IArrayWithKeys[],
     isBombsShow: boolean
 }
 
@@ -17,10 +17,10 @@ export const tilesSlice = createSlice({
     name: 'tiles',
     initialState,
     reducers: {
-        createTiles: (state, action: PayloadAction<ShuffleTiles>) => {
+        createTiles: (state, action: PayloadAction<IArrayWithKeys[]>) => {
             state.tiles = action.payload
         },
-        updateTiles: (state, action: PayloadAction<ShuffleTiles>) => {
+        updateTiles: (state, action: PayloadAction<IArrayWithKeys[]>) => {
             state.tiles = action.payload
         },
         showTilesWithBomb: (state, action: PayloadAction<boolean>) => {

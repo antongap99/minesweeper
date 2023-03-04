@@ -23,7 +23,7 @@ export const GameSquare = ({ over, win }: Props) => {
           [style.win]: win,
         })}>
       {
-        tiles.copeTyles.map((tile, index) => {
+        tiles.map((tile, index) => {
           if (tile.bomb) {
             return <Tile key={tile.key}
               bomb={true}

@@ -1,14 +1,13 @@
 import style from './Tile.module.css';
 import cn from 'classnames'
-import { ButtonHTMLAttributes, DetailedHTMLProps, SyntheticEvent, useContext, useState } from 'react';
-import { BombsContext } from '../../../../../context/bomb.context';
-import { SmilesContext } from '../../../../../context/smile.context';
-import { Emojies } from '../../../../../context/smile.context';
+import { ButtonHTMLAttributes, DetailedHTMLProps, SyntheticEvent, useState } from 'react';
 import { openTiles, pickedTiles } from '../../../../../control/tilesControl';
 import { BOMBS, HEIGHT, WIDTH } from '../../../../../const/const';
 import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
 import { gameActions } from '../../../../../store/game/gameSlice';
 import { tilesActions } from '../../../../../store/tiles/tilesSlice';
+import { smileActions } from '../../../../../store/smile/smileSlice';
+import { Emojies } from '../../../../../types/smileType';
 
 interface TileProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   bomb?: boolean;
@@ -32,11 +31,9 @@ enum RightPick {
 export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
   const dispath = useAppDispatch()
   const [pick, setPick] = useState<RightPick>(RightPick.noClickYet)
-  const { bombs, setBombs } = useContext(BombsContext);
-  const { setEmoji } = useContext(SmilesContext);
   const [isTargetBomb, setIsTargetBomb] = useState<boolean>(false);
 
-  const { isGameOver, firstClick } = useAppSelector(state => state.game)
+  const { isGameOver, firstClick, bombCount } = useAppSelector(state => state.game)
   const { tiles } = useAppSelector(state => state.tiles)
 
 
@@ -66,28 +63,25 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
       className={classes}
       onContextMenu={(e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        if (pick === 0 && setBombs) {
+        if (pick === 0) {
           setPick(RightPick.flag);
-          setBombs(bombs - 1)
-          dispath(tilesActions.updateTiles((pickedTiles(tiles.copeTyles, index, over))))
+          dispath(gameActions.updateBomb(bombCount - 1))
+          dispath(tilesActions.updateTiles((pickedTiles(tiles, index, over))))
         }
 
-        if (pick === 1 && setBombs) {
+        if (pick === 1 ) {
           setPick(RightPick.question);
-          setBombs(bombs + 1)
+          dispath(gameActions.updateBomb(bombCount + 1))
         } else if (pick === 2) {
           setPick(RightPick.noClickYet);
         }
 
       }}
       onMouseDown={() => {
-        if (setEmoji) {
-          setEmoji(Emojies.Surprice)
-        }
-
+          dispath(smileActions.updateSmile(Emojies.Surprice))
       }}
       onMouseUp={() => {
-        setEmoji && setEmoji(Emojies.Smile)
+        dispath(smileActions.updateSmile(Emojies.Smile))
       }}
       onClick={() => {
         if (pick === RightPick.flag || pick === RightPick.question) {
@@ -95,20 +89,20 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         }
 
         if (firstClick) {
-          dispath(tilesActions.updateTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver)))
+          dispath(tilesActions.updateTiles(openTiles(tiles, index, WIDTH, HEIGHT, firstClick, isGameOver)))
           dispath(gameActions.updateFirstClick(false))
         }
         if (!firstClick && !bomb) {
-          dispath(tilesActions.updateTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver)))
+          dispath(tilesActions.updateTiles(openTiles(tiles, index, WIDTH, HEIGHT, firstClick, isGameOver)))
         }
         if (!firstClick && bomb) {
           setIsTargetBomb(true);
-          setEmoji && setEmoji(Emojies.Sed);
+          dispath(smileActions.updateSmile(Emojies.Sed))
           dispath(gameActions.updateGameOver(true))
           return;
         }
 
-        const openedTiles: number = tiles.copeTyles.reduce((bombs, tile) => {
+        const openedTiles: number = tiles.reduce((bombs, tile) => {
           if ((tile.picked || tile.open) && !tile.bomb) {
             return bombs + 1;
           } else {
@@ -118,7 +112,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
 
         if (openedTiles === WIDTH * HEIGHT - BOMBS) {
           dispath(gameActions.updateGameWin(openedTiles === WIDTH * HEIGHT - BOMBS))
-          setEmoji && setEmoji(Emojies.Win)
+          dispath(smileActions.updateSmile(Emojies.Win))
         }
 
       }}

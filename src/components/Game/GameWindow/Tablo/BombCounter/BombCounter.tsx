@@ -1,13 +1,12 @@
-import { useContext } from 'react';
-import { BombsContext } from '../../../../../context/bomb.context';
 import style from './BombCounter.module.css';
 import { counterUpdate } from '../counthelper';
+import { useAppSelector } from '../../../../../store/hooks';
 
 
 export const BombCounter = () => {
-  const { bombs } = useContext(BombsContext);
+  const bombCount = useAppSelector(state => state.game.bombCount)
 
-  const icons = counterUpdate(bombs)
+  const icons = counterUpdate(bombCount)
 
 
   return (
