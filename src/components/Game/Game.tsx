@@ -1,9 +1,8 @@
 import style from './Game.module.css';
 import { WithLayout } from '../../Layout/layout';
 import { GameWindow } from './GameWindow/GameWindow';
-import { GameContext } from '../../context/game.context';
-import { useContext } from 'react';
 import cn from 'classnames'
+import { useAppSelector } from '../../store/hooks';
 
 interface Props extends Record<string, unknown> {
   endGame: () => void
@@ -11,11 +10,13 @@ interface Props extends Record<string, unknown> {
 
 
 const Game = ({ endGame }: Props) => {
-  const { isGameOver, isGameWin } = useContext(GameContext)
+  const { isGameOver, isGameWin } = useAppSelector(state => state.game)
+
+
+
 
   return (
     <div className={style.wrapper}>
-
 
       {
       !isGameOver ? (

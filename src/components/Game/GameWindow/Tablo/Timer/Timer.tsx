@@ -3,18 +3,18 @@ import style from './Timer.module.css';
 import { timeUpdate } from '../counthelper';
 
 import { TabloContext } from '../../../../../context/Tablo.context';
-import { GameContext } from '../../../../../context/game.context';
+import { useAppSelector } from '../../../../../store/hooks';
 
 
 
 export const Timer = () => {
   const { time, setTime } = useContext(TabloContext)
-  const { isGameOver, setIsGameOver , isGameWin } = useContext(GameContext)
+  const { isGameOver, isGameWin } = useAppSelector(state => state.game)
 
   const tick = () => {
     if (isGameOver) return;
 
-    if ( isGameWin || isGameOver) {
+    if (isGameWin || isGameOver) {
       return;
     }
     setTime && setTime(time + 1)
@@ -42,7 +42,7 @@ export const Timer = () => {
   return (
     <div className={style.timer}>
       {
-        !setIsGameOver  ? (
+        !isGameOver  ? (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)
         ) : (
           icons.map((ic, inx) => <span key={inx}><img className={style.number} src={ic} alt="count" /></span>)

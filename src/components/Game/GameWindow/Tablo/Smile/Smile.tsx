@@ -7,34 +7,31 @@ import cn from 'classnames';
 import { useContext, FC } from 'react';
 import { BombsContext } from '../../../../../context/bomb.context';
 import { Emojies, SmilesContext } from '../../../../../context/smile.context';
-import { GameContext } from '../../../../../context/game.context';
-import { TilesContext } from '../../../../../context/tiles.context';
-import { createAndshuffleTiles } from '../../GameSquare/tilesControl';
+import { createShuffledTiles } from '../../../../../control/tilesControl';
 import { TabloContext } from '../../../../../context/Tablo.context';
 import { BOMBS, HEIGHT, TIME, WIDTH } from '../../../../../const/const';
-
+import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
+import { gameActions } from '../../../../../store/game/gameSlice';
+import { tilesActions } from '../../../../../store/tiles/tilesSlice';
 
 
 
 export const Smile: FC = () => {
-
+  const dispatch = useAppDispatch()
   const { emoji, setEmoji } = useContext(SmilesContext);
-  const { setNewTiles } = useContext(TilesContext)
   const { setBombs } = useContext(BombsContext)
-  const {
-     isGameOver,
-    setIsGameOver ,
-     setfirstClick,
-     firstClick,
-     setIsGameWin
-    } = useContext(GameContext)
+  const { isGameOver, firstClick } = useAppSelector(state => state.game)
+
+
   const { setTime } = useContext(TabloContext);
 
   const UpdateGame = () => {
-    setIsGameOver && setIsGameOver(false)
-    setIsGameWin && setIsGameWin(false)
-    setfirstClick && setfirstClick(true)
-    setNewTiles && setNewTiles(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, firstClick, isGameOver))
+    dispatch(gameActions.UpdateGame({
+      firstClick: true,
+      isGameOver: false,
+      isGameWin: false,
+    }))
+    dispatch(tilesActions.createTiles(createShuffledTiles(WIDTH, HEIGHT, BOMBS, firstClick, isGameOver)))
     setEmoji && setEmoji(Emojies.Smile)
     setBombs && setBombs(BOMBS);
     setTime && setTime(TIME)

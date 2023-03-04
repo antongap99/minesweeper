@@ -4,10 +4,11 @@ import { ButtonHTMLAttributes, DetailedHTMLProps, SyntheticEvent, useContext, us
 import { BombsContext } from '../../../../../context/bomb.context';
 import { SmilesContext } from '../../../../../context/smile.context';
 import { Emojies } from '../../../../../context/smile.context';
-import { TilesContext } from '../../../../../context/tiles.context';
-import { openTiles, pickedTiles } from '../tilesControl';
-import { GameContext } from '../../../../../context/game.context';
+import { openTiles, pickedTiles } from '../../../../../control/tilesControl';
 import { BOMBS, HEIGHT, WIDTH } from '../../../../../const/const';
+import { useAppDispatch, useAppSelector } from '../../../../../store/hooks';
+import { gameActions } from '../../../../../store/game/gameSlice';
+import { tilesActions } from '../../../../../store/tiles/tilesSlice';
 
 interface TileProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   bomb?: boolean;
@@ -29,21 +30,16 @@ enum RightPick {
 
 
 export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
-
+  const dispath = useAppDispatch()
   const [pick, setPick] = useState<RightPick>(RightPick.noClickYet)
   const { bombs, setBombs } = useContext(BombsContext);
   const { setEmoji } = useContext(SmilesContext);
   const [isTargetBomb, setIsTargetBomb] = useState<boolean>(false);
-  const {
-    isGameOver,
-    setIsGameOver,
-    setIsGameWin,
-    firstClick,
-    setfirstClick
-  } = useContext(GameContext)
-  const { tiles, setNewTiles } = useContext(TilesContext)
 
-  // isGameOver
+  const { isGameOver, firstClick } = useAppSelector(state => state.game)
+  const { tiles } = useAppSelector(state => state.tiles)
+
+
   const classes = cn(style.tile, {
     [style.picked]: pick === 1,
     [style.question]: pick === 2,
@@ -70,10 +66,10 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
       className={classes}
       onContextMenu={(e: SyntheticEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        if (pick === 0 && setBombs && setNewTiles) {
+        if (pick === 0 && setBombs) {
           setPick(RightPick.flag);
           setBombs(bombs - 1)
-          index && setNewTiles(pickedTiles(tiles.copeTyles, index, over))
+          dispath(tilesActions.updateTiles((pickedTiles(tiles.copeTyles, index, over))))
         }
 
         if (pick === 1 && setBombs) {
@@ -98,30 +94,30 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           return;
         }
 
-        if (firstClick && setNewTiles) {
-          setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
-          setfirstClick && setfirstClick(false);
+        if (firstClick) {
+          dispath(tilesActions.updateTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver)))
+          dispath(gameActions.updateFirstClick(false))
         }
-        if (!firstClick && !bomb && setNewTiles) {
-          setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
+        if (!firstClick && !bomb) {
+          dispath(tilesActions.updateTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver)))
         }
         if (!firstClick && bomb) {
           setIsTargetBomb(true);
           setEmoji && setEmoji(Emojies.Sed);
-          setIsGameOver && setIsGameOver(true)
-          return
+          dispath(gameActions.updateGameOver(true))
+          return;
         }
 
         const openedTiles: number = tiles.copeTyles.reduce((bombs, tile) => {
           if ((tile.picked || tile.open) && !tile.bomb) {
-            return bombs + 1
+            return bombs + 1;
           } else {
-            return bombs
+            return bombs;
           }
         }, 0)
 
         if (openedTiles === WIDTH * HEIGHT - BOMBS) {
-          setIsGameWin && setIsGameWin(openedTiles === WIDTH * HEIGHT - BOMBS)
+          dispath(gameActions.updateGameWin(openedTiles === WIDTH * HEIGHT - BOMBS))
           setEmoji && setEmoji(Emojies.Win)
         }
 

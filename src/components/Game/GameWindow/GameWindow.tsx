@@ -4,19 +4,14 @@ import { GameSquare } from './GameSquare/GameSquare';
 import { Tablo } from './Tablo/Tablo';
 import { BombsContextProvider } from '../../../context/bomb.context';
 import { SmilesContextProvider } from '../../../context/smile.context';
-import { TilesContextProvider } from '../../../context/tiles.context';
-import { useContext } from 'react';
-import { GameContext } from '../../../context/game.context';
+import { useAppSelector } from '../../../store/hooks';
 
 
 
 export const GameWindow = () => {
-
-  const { isGameOver, isGameWin } = useContext(GameContext)
+  const { isGameOver, isGameWin } = useAppSelector(state => state.game)
 
   return (
-
-    <TilesContextProvider isGameOver={isGameOver}>
       <SmilesContextProvider>
         <BombsContextProvider>
           <div className={cn(style.window, 'border')}>
@@ -25,8 +20,6 @@ export const GameWindow = () => {
           </div>
         </BombsContextProvider>
       </SmilesContextProvider>
-    </TilesContextProvider>
-
   );
 };
 
