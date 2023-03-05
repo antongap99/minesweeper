@@ -98,7 +98,6 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         setEmoji && setEmoji(Emojies.Smile)
       }}
       onClick={() => {
-        debugger
         if (pick === RightPick.flag || pick === RightPick.question) {
           return;
         }
