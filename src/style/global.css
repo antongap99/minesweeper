@@ -53,3 +53,12 @@ body {
     color: black;
     cursor: pointer;
 }
+
+.btn:hover {
+    border-width: 4px;
+    border-style: solid;
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    border-top-color: var(--black);
+    border-left-color: var(--black);
+}

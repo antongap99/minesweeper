@@ -90,7 +90,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         }
       }}
       onMouseLeave={(() => {
-        if (setEmoji) {
+        if (setEmoji && !isGameOver) {
           setEmoji(Emojies.Smile)
         }
       })}
@@ -98,6 +98,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         setEmoji && setEmoji(Emojies.Smile)
       }}
       onClick={() => {
+        debugger
         if (pick === RightPick.flag || pick === RightPick.question) {
           return;
         }
@@ -111,6 +112,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         }
         if (!firstClick && bomb) {
           setIsTargetBomb(true);
+
           setEmoji && setEmoji(Emojies.Sed);
           setIsGameOver && setIsGameOver(true)
           return
