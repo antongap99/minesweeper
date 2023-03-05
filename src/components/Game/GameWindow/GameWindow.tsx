@@ -15,7 +15,6 @@ export const GameWindow = () => {
   const { isGameOver, isGameWin } = useContext(GameContext)
 
   return (
-
     <TilesContextProvider isGameOver={isGameOver}>
       <SmilesContextProvider>
         <BombsContextProvider>

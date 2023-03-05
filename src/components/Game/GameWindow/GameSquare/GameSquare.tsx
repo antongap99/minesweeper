@@ -11,7 +11,6 @@ interface Props {
 
 
 export const GameSquare = ({ over, win }: Props) => {
-
   const { tiles } = useContext(TilesContext);
 
   return (

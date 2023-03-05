@@ -5,7 +5,7 @@ import { BombsContext } from '../../../../../context/bomb.context';
 import { SmilesContext } from '../../../../../context/smile.context';
 import { Emojies } from '../../../../../context/smile.context';
 import { TilesContext } from '../../../../../context/tiles.context';
-import { openTiles, pickedTiles } from '../tilesControl';
+import { openedTiles, pickedTiles } from '../tilesControl';
 import { GameContext } from '../../../../../context/game.context';
 import { BOMBS, HEIGHT, WIDTH } from '../../../../../const/const';
 
@@ -25,11 +25,7 @@ enum RightPick {
   question,
 }
 
-
-
-
 export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
-
   const [pick, setPick] = useState<RightPick>(RightPick.noClickYet)
   const { bombs, setBombs } = useContext(BombsContext);
   const { setEmoji } = useContext(SmilesContext);
@@ -43,7 +39,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
   } = useContext(GameContext)
   const { tiles, setNewTiles } = useContext(TilesContext)
 
-  // isGameOver
+
   const classes = cn(style.tile, {
     [style.picked]: pick === 1,
     [style.question]: pick === 2,
@@ -61,9 +57,6 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
     [style.tile8]: nearByBombs === 8 && open,
     [style.tile9]: nearByBombs === 9 && open,
   })
-
-
-
 
   return (
     <button
@@ -103,11 +96,11 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         }
 
         if (firstClick && setNewTiles) {
-          setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
+          setNewTiles(openedTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
           setfirstClick && setfirstClick(false);
         }
         if (!firstClick && !bomb && setNewTiles) {
-          setNewTiles(openTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
+          setNewTiles(openedTiles(tiles.copeTyles, index, WIDTH, HEIGHT, firstClick, isGameOver))
         }
         if (!firstClick && bomb) {
           setIsTargetBomb(true);
@@ -117,7 +110,7 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           return
         }
 
-        const openedTiles: number = tiles.copeTyles.reduce((bombs, tile) => {
+        const openedTilesCount: number = tiles.copeTyles.reduce((bombs, tile) => {
           if ((tile.picked || tile.open) && !tile.bomb) {
             return bombs + 1
           } else {
@@ -125,8 +118,8 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
           }
         }, 0)
 
-        if (openedTiles === WIDTH * HEIGHT - BOMBS) {
-          setIsGameWin && setIsGameWin(openedTiles === WIDTH * HEIGHT - BOMBS)
+        if (openedTilesCount === WIDTH * HEIGHT - BOMBS) {
+          setIsGameWin && setIsGameWin(openedTilesCount === WIDTH * HEIGHT - BOMBS)
           setEmoji && setEmoji(Emojies.Win)
         }
 

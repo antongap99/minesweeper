@@ -1,10 +1,8 @@
 import { useEffect, useContext } from 'react';
 import style from './Timer.module.css';
 import { timeUpdate } from '../counthelper';
-
 import { TabloContext } from '../../../../../context/Tablo.context';
 import { GameContext } from '../../../../../context/game.context';
-
 
 
 export const Timer = () => {
@@ -20,8 +18,6 @@ export const Timer = () => {
     setTime && setTime(time + 1)
   }
 
-
-
   useEffect(() => {
     let timerID = setInterval(
       () => {
@@ -34,8 +30,6 @@ export const Timer = () => {
       clearInterval(timerID)
     }
   })
-
-
 
   const icons = timeUpdate(time)
 

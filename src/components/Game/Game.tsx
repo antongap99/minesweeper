@@ -15,8 +15,6 @@ const Game = ({ endGame }: Props) => {
 
   return (
     <div className={style.wrapper}>
-
-
       {
       !isGameOver ? (
         isGameWin ? (

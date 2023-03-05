@@ -9,7 +9,7 @@ import { BombsContext } from '../../../../../context/bomb.context';
 import { Emojies, SmilesContext } from '../../../../../context/smile.context';
 import { GameContext } from '../../../../../context/game.context';
 import { TilesContext } from '../../../../../context/tiles.context';
-import { createAndshuffleTiles } from '../../GameSquare/tilesControl';
+import { createShuffledTiles } from '../../GameSquare/tilesControl';
 import { TabloContext } from '../../../../../context/Tablo.context';
 import { BOMBS, HEIGHT, TIME, WIDTH } from '../../../../../const/const';
 
@@ -22,19 +22,19 @@ export const Smile: FC = () => {
   const { setNewTiles } = useContext(TilesContext)
   const { setBombs } = useContext(BombsContext)
   const {
-     isGameOver,
-    setIsGameOver ,
-     setfirstClick,
-     firstClick,
-     setIsGameWin
-    } = useContext(GameContext)
+    isGameOver,
+    setIsGameOver,
+    setfirstClick,
+    firstClick,
+    setIsGameWin
+  } = useContext(GameContext)
   const { setTime } = useContext(TabloContext);
 
   const UpdateGame = () => {
     setIsGameOver && setIsGameOver(false)
     setIsGameWin && setIsGameWin(false)
     setfirstClick && setfirstClick(true)
-    setNewTiles && setNewTiles(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, firstClick, isGameOver))
+    setNewTiles && setNewTiles(createShuffledTiles(WIDTH, HEIGHT, BOMBS, firstClick, isGameOver))
     setEmoji && setEmoji(Emojies.Smile)
     setBombs && setBombs(BOMBS);
     setTime && setTime(TIME)

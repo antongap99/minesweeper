@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, FC } from "react";
-import { createAndshuffleTiles, ShuffleTiles } from "../components/Game/GameWindow/GameSquare/tilesControl";
+import { createShuffledTiles, ShuffleTiles } from "../components/Game/GameWindow/GameSquare/tilesControl";
 import { BOMBS, HEIGHT, WIDTH } from "../const/const";
 
 
@@ -13,7 +13,7 @@ export interface ITilesContext {
 
 
 export const TilesContext = createContext<ITilesContext>({
-    tiles: createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, false),
+    tiles: createShuffledTiles(WIDTH, HEIGHT, BOMBS, false),
     isBombsShows:false,
 });
 
@@ -23,7 +23,7 @@ type ProviderProps = {
 }
 
 export const TilesContextProvider: FC<ProviderProps> = ({ children, isGameOver }: ProviderProps) => {
-    const [tiles, setTiles] = useState<ShuffleTiles>(createAndshuffleTiles(WIDTH, HEIGHT, BOMBS, isGameOver))
+    const [tiles, setTiles] = useState<ShuffleTiles>(createShuffledTiles(WIDTH, HEIGHT, BOMBS, isGameOver))
 
     const [isBombsShows, setBombsShows] = useState<boolean>(false);
     // const [open, setOpen] = useState<boolean>(false)

@@ -6,9 +6,7 @@ import { counterUpdate } from '../counthelper';
 
 export const BombCounter = () => {
   const { bombs } = useContext(BombsContext);
-
   const icons = counterUpdate(bombs)
-
 
   return (
     <div className={style.counter}>
