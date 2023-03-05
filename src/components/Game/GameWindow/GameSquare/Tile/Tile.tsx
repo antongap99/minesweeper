@@ -83,7 +83,9 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
       }}
 
       onMouseLeave={(() => {
-        dispath(smileActions.updateSmile(Emojies.Smile))
+        if(!isGameOver){
+          dispath(smileActions.updateSmile(Emojies.Smile))
+        }
       })}
       onMouseUp={() => {
         dispath(smileActions.updateSmile(Emojies.Smile))
