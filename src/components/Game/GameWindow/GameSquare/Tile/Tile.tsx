@@ -72,7 +72,8 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         if (pick === 1 ) {
           setPick(RightPick.question);
           dispath(gameActions.updateBomb(bombCount + 1))
-        } else if (pick === 2) {
+        }
+        if(pick === 2) {
           setPick(RightPick.noClickYet);
         }
 
@@ -80,6 +81,10 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
       onMouseDown={() => {
           dispath(smileActions.updateSmile(Emojies.Surprice))
       }}
+
+      onMouseLeave={(() => {
+        dispath(smileActions.updateSmile(Emojies.Smile))
+      })}
       onMouseUp={() => {
         dispath(smileActions.updateSmile(Emojies.Smile))
       }}
