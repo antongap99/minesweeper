@@ -11,12 +11,16 @@
     border-style: solid;
 }
 
+.tile:hover {
+    border-width: 2px;
+}
+
 .picked {
     background: url('./icons/flag.svg') center center no-repeat;
 }
 
 .question {
-    background: url('./icons/qust.svg')  no-repeat;
+    background: url('./icons/qust.svg') center center no-repeat;
 }
 
 .cross {
