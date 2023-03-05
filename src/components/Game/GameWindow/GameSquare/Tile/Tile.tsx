@@ -88,8 +88,12 @@ export const Tile = ({ bomb, index, over, nearByBombs, open }: TileProps) => {
         if (setEmoji) {
           setEmoji(Emojies.Surprice)
         }
-
       }}
+      onMouseLeave={(() => {
+        if (setEmoji) {
+          setEmoji(Emojies.Smile)
+        }
+      })}
       onMouseUp={() => {
         setEmoji && setEmoji(Emojies.Smile)
       }}
