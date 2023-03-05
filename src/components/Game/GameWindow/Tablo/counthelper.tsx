@@ -2,7 +2,7 @@ import { Icons } from "./icons"
 
 
 
-export const timeUpdate = (bombs: number): string[] => {
+export const UpdateTime = (bombs: number): string[] => {
     const timesNumbers: string[] = []
     if (bombs > 999 && bombs < 10000) {
         timesNumbers.push(...['9', '9', '9'])
@@ -24,7 +24,7 @@ export const timeUpdate = (bombs: number): string[] => {
     return res
 }
 
-export const counterUpdate = (bombs: number): string[] => {
+export const updateCounter = (bombs: number): string[] => {
     const bombsNumbers: string[] = []
     if (bombs > 99 && bombs < 10000) {
         bombsNumbers.push(...bombs.toString().split(''))

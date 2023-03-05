@@ -1,12 +1,12 @@
 import style from './BombCounter.module.css';
-import { counterUpdate } from '../counthelper';
+import { updateCounter } from '../counthelper';
 import { useAppSelector } from '../../../../../store/hooks';
 
 
 export const BombCounter = () => {
   const bombCount = useAppSelector(state => state.game.bombCount)
 
-  const icons = counterUpdate(bombCount)
+  const icons = updateCounter(bombCount)
 
 
   return (

@@ -6,15 +6,15 @@ import { Smile } from './Smile/Smile';
 import { TabloContextProvider } from '../../../../context/Tablo.context';
 
 
-export const Tablo = () => {
 
+export const Tablo = () => {
   return (
     <TabloContextProvider>
       <div className={cn(style.wrapper)}>
         <div className={cn(style.tablo, 'border-reverse')}>
           <BombCounter />
           <Smile />
-          <Timer />
+          <Timer/>
         </div>
       </div>
     </TabloContextProvider>
