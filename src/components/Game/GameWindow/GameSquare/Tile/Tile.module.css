@@ -33,7 +33,11 @@
 }
 
 .over {
-    border: none;
+    border-top-color: var(--black);
+    border-left-color: var(--black);
+    border-right-color: var(--primary);
+    border-bottom-color: var(--primary);
+    border-width: 2px;
     background-image: url('./icons/bomb.svg');
     background-position: center center;
     background-repeat: no-repeat;
@@ -50,7 +54,11 @@
 .tile7,
 .tile8 {
     background-color: #BFBFBF;
-    border: none;
+    border-top-color: var(--black);
+    border-left-color: var(--black);
+    border-right-color: var(--primary);
+    border-bottom-color: var(--primary);
+    border-width: 2px;
     background-position: center center;
     background-repeat: no-repeat;
     pointer-events: none;
