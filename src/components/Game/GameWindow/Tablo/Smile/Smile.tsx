@@ -9,7 +9,7 @@ import { BombsContext } from '../../../../../context/bomb.context';
 import { Emojies, SmilesContext } from '../../../../../context/smile.context';
 import { GameContext } from '../../../../../context/game.context';
 import { TilesContext } from '../../../../../context/tiles.context';
-import { createShuffledTiles } from '../../../../../service/tilesControl';
+import { createShuffledTiles } from '../../../../../service/gameContol';
 import { TabloContext } from '../../../../../context/Tablo.context';
 import { BOMBS, HEIGHT, TIME, WIDTH } from '../../../../../const/const';
 

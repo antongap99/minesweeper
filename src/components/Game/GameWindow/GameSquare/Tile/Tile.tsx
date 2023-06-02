@@ -14,7 +14,7 @@ import { Emojies } from "../../../../../context/smile.context";
 import { TilesContext } from "../../../../../context/tiles.context";
 import { GameContext } from "../../../../../context/game.context";
 import { BOMBS, HEIGHT, WIDTH } from "../../../../../const/const";
-import { openTiles, pickTiles } from "../../../../../service/tilesControl";
+import { openTiles, pickTiles } from "../../../../../service/gameContol";
 import { countOpenedTiles } from "../../../../../service/helpers";
 
 interface TileProps

@@ -3,8 +3,7 @@ import { WithLayout } from "../../Layout/layout";
 import { GameWindow } from "./GameWindow/GameWindow";
 import { GameContext } from "../../context/game.context";
 import { useContext } from "react";
-import cn from "classnames";
-import { Button } from '../Button/Button';
+import { Button } from "../Button/Button";
 
 interface Props extends Record<string, unknown> {
   endGame: () => void;
@@ -20,7 +19,7 @@ const Game = ({ endGame }: Props) => {
         <h1 className={style.lose}>Игра окончена</h1>
       )}
       <GameWindow />
-        <Button text="Завершить" handle={endGame}/>
+      <Button text="Завершить" handle={endGame} />
     </div>
   );
 };

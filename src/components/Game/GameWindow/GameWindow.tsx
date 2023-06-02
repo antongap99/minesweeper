@@ -11,7 +11,6 @@ import { GameContext } from '../../../context/game.context';
 
 
 export const GameWindow = () => {
-
   const { isGameOver, isGameWin } = useContext(GameContext)
 
   return (

@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode, FC } from "react";
 import { BOMBS, HEIGHT, WIDTH } from "../const/const";
-import {  createShuffledTiles } from '../service/tilesControl';
+import {  createShuffledTiles } from '../service/gameContol';
 import { IShuffledTiles } from '../service/interfaces';
 
 
