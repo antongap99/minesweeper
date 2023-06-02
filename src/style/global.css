@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: 'ArcadeClassic';
-    src: local("ArcadeClassic"), url('../fonts/ARCADECLASSIC.ttf'), format('WOFF');
+    src: local("ArcadeClassic"), url('../assets/fonts/ArcadeClassic.ttf'), format('WOFF');
 }
 
 html {
@@ -47,18 +47,42 @@ body {
     height: 24px;
 }
 
-.btn {
-    background: #E5E5E5;
-    padding: 5px;
-    color: black;
-    cursor: pointer;
+
+
+
+
+.tile0 {
+    background-image: url('./../assets/icons/zero.svg');
 }
 
-.btn:hover {
-    border-width: 4px;
-    border-style: solid;
-    border-right-color: var(--white);
-    border-bottom-color: var(--white);
-    border-top-color: var(--black);
-    border-left-color: var(--black);
+.tile1 {
+    background-image: url('./../assets/icons/one.svg');
+}
+
+.tile2 {
+    background-image: url('./../assets/icons/two.svg');
+}
+
+.tile3 {
+    background-image: url('./../assets/icons/three.svg');
+}
+
+.tile4 {
+    background-image: url('./../assets/icons/four.svg');
+}
+
+.tile5 {
+    background-image: url('./../assets/icons/five.svg');
+}
+
+.tile6 {
+    background-image: url('./../assets/icons/six.svg');
+}
+
+.tile7 {
+    background-image: url('./../assets/icons/seven.svg');
+}
+
+.tile8 {
+    background-image: url('./../assets/icons/eight.svg');
 }

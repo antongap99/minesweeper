@@ -2,7 +2,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background: #BFBFBF;
+    background-color: #BFBFBF;
     border-top: var(--white);
     border-left: var(--white);
     border-right: var(--black);
@@ -10,50 +10,8 @@
     border-width: 4px;
     border-style: solid;
 }
-.tile:hover {
-    border-width: 2px;
-}
-.picked {
-    background: url('./icons/flag.svg') center center no-repeat;
-}
 
-.question {
-    background: url('./icons/qust.svg') center center no-repeat;
-}
-
-.cross {
-    background-image: url('./icons/flag.svg'), url('./icons/cross.svg');
-}
-
-.bomb {
-    border: none;
-    background-color: var(--bombBg);
-    background-image: url('./icons/bomb.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-.over {
-    border-top-color: var(--black);
-    border-left-color: var(--black);
-    border-right-color: var(--primary);
-    border-bottom-color: var(--primary);
-    border-width: 2px;
-    background-image: url('./icons/bomb.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-
-.tile0,
-.tile1,
-.tile2,
-.tile3,
-.tile4,
-.tile5,
-.tile6,
-.tile7,
-.tile8 {
+.open {
     background-color: #BFBFBF;
     border-top-color: var(--black);
     border-left-color: var(--black);
@@ -65,38 +23,36 @@
     pointer-events: none;
 }
 
-.tile0 {
-    background-image: url('./icons/zero.svg');
+.tile:hover {
+    border-width: 2px;
+}
+.picked {
+    background: url('/src/assets/icons/flag.svg') center center no-repeat;
 }
 
-.tile1 {
-    background-image: url('./icons/one.svg');
+.question {
+    background: url('/src/assets/icons/qust.svg') center center no-repeat;
 }
 
-.tile2 {
-    background-image: url('./icons/two.svg');
+.cross {
+    background-image: url('/src/assets/icons/flag.svg'), url('/src/assets/icons/cross.svg');
 }
 
-.tile3 {
-    background-image: url('./icons/three.svg');
+.bomb {
+    border: none;
+    background-color: var(--bombBg);
+    background-image: url('/src/assets/icons/bomb.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
-.tile4 {
-    background-image: url('./icons/four.svg');
-}
-
-.tile5 {
-    background-image: url('./icons/five.svg');
-}
-
-.tile6 {
-    background-image: url('./icons/six.svg');
-}
-
-.tile7 {
-    background-image: url('./icons/seven.svg');
-}
-
-.tile8 {
-    background-image: url('./icons/eight.svg');
+.over {
+    border-top-color: var(--black);
+    border-left-color: var(--black);
+    border-right-color: var(--primary);
+    border-bottom-color: var(--primary);
+    border-width: 2px;
+    background-image: url('/src/assets/icons/bomb.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
 }

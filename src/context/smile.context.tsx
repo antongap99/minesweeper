@@ -10,11 +10,11 @@ export enum Emojies {
 interface Props {
     children:ReactNode
 }
-type UpdateSmile = (arg: Emojies) => void;
+type UpdateSmileType = (arg: Emojies) => void;
 
 export interface ISmilesContext {
     emoji: Emojies
-    setEmoji?: UpdateSmile
+    setEmoji?: UpdateSmileType
 }
 
 export const SmilesContext = createContext<ISmilesContext>({ emoji: Emojies.Smile });
